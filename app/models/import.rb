@@ -3,35 +3,35 @@ require 'csv'
 class Import
 
   def self.populate_metrolink_data
-    # routes.each do |route|
-    #   Route.where(
-    #     route_id:         route["route_id"],
-    #     route_short_name: route["route_short_name"],
-    #     route_long_name:  route["route_long_name"]
-    #   ).first_or_create
-    # end
-    #
-    # trips(Route.pluck(:route_id)).each do |trip|
-    #   Trip.where(
-    #     block_id:       trip["block_id"],
-    #     route_id:       trip["route_id"],
-    #     direction_id:   trip["direction_id"],
-    #     trip_headsign:  trip["trip_headsign"],
-    #     shape_id:       trip["shape_id"],
-    #     service_id:     trip["service_id"],
-    #     trip_id:        trip["trip_id"]
-    #   ).first_or_create
-    # end
-    #
-    # stop_times(Trip.pluck(:trip_id)).each do |stop_time|
-    #   StopTime.where(
-    #     trip_id:          stop_time["trip_id"],
-    #     arrival_time:     stop_time["arrival_time"],
-    #     departure_time:   stop_time["departure_time"],
-    #     stop_id:          stop_time["stop_id"],
-    #     stop_sequence:    stop_time["stop_sequence"]
-    #   ).first_or_create
-    # end
+    routes.each do |route|
+      Route.where(
+        route_id:         route["route_id"],
+        route_short_name: route["route_short_name"],
+        route_long_name:  route["route_long_name"]
+      ).first_or_create
+    end
+
+    trips(Route.pluck(:route_id)).each do |trip|
+      Trip.where(
+        block_id:       trip["block_id"],
+        route_id:       trip["route_id"],
+        direction_id:   trip["direction_id"],
+        trip_headsign:  trip["trip_headsign"],
+        shape_id:       trip["shape_id"],
+        service_id:     trip["service_id"],
+        trip_id:        trip["trip_id"]
+      ).first_or_create
+    end
+
+    stop_times(Trip.pluck(:trip_id)).each do |stop_time|
+      StopTime.where(
+        trip_id:          stop_time["trip_id"],
+        arrival_time:     stop_time["arrival_time"],
+        departure_time:   stop_time["departure_time"],
+        stop_id:          stop_time["stop_id"],
+        stop_sequence:    stop_time["stop_sequence"]
+      ).first_or_create
+    end
 
     stops(StopTime.pluck(:stop_id).uniq).each do |stop|
       Stop.where(
