@@ -23,7 +23,15 @@ class Import
       ).first_or_create
     end
 
-    stop_times
+    stop_times(Trip.pluck(:trip_id)).each do |stop_time|
+      StopTime.where(
+        trip_id:          stop_time["trip_id"],
+        arrival_time:     stop_time["arrival_time"],
+        departure_time:   stop_time["departure_time"],
+        stop_id:          stop_time["stop_id"],
+        stop_sequence:    stop_time["stop_sequence"]
+      ).first_or_create
+    end
   end
 
   def self.routes
@@ -42,10 +50,10 @@ class Import
     result
   end
 
-  def self.stop_times
+  def self.stop_times(trip_ids)
     result = []
     CSV.foreach(csv_path("stop_times"), headers: true) do |row|
-      result << row.to_hash
+      result << row.to_hash if trip_ids.include?(row["trip_id"])
     end
     result
   end
