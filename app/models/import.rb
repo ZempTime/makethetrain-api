@@ -2,8 +2,17 @@ require 'csv'
 
 class Import
 
-  def import_metrolink_data
-    routes
+  def self.populate_metrolink_data
+    routes.each do |route|
+      Route.where(
+        route_id: route["route_id"],
+        route_short_name: route["route_short_name"],
+        route_long_name: route["route_long_name"]
+      ).first_or_create
+    end
+
+    trips(Route.pluck(:route_id)).each do |trip|
+    end
   end
 
   def self.routes
@@ -14,10 +23,10 @@ class Import
     result
   end
 
-  def self.trips
+  def self.trips(route_ids)
     result = []
     CSV.foreach(csv_path("trips"), headers: true) do |row|
-      result << row.to_hash
+      result << row.to_hash if route_ids.include?(row["route_id"])
     end
     result
   end
