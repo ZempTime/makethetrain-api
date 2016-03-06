@@ -1,5 +1,5 @@
-class Path
-  attr_accessor :stops, :edges, :graph
+class MetroGraph
+  attr_accessor :stops, :edges
   # based on: https://en.wikipedia.org/wiki/List_of_MetroLink_(St._Louis)_stations#/media/File:MetroLink_map_Oct2008.svg
 
   # trips contain a number of stops at specific times
@@ -19,7 +19,6 @@ class Path
   def initialize
     @stops = Stop.all.to_a
     @edges = set_edges
-    @graph = @stops.map {|stop| Vertice.new(stop)}
   end
 
   def edge_to_stations(edge)
@@ -36,7 +35,7 @@ class Path
   def array_to_edges(array)
     result = []
     array.each_index do |i|
-      next if i == 0
+      next if ( i - 1 ) < 0
       result.push([array[i - 1], array[i]])
     end
     result
@@ -66,25 +65,5 @@ class Path
 
   def red_line
     red_line_names.map { |s| Stop.where(stop_name: "#{s} METROLINK STATION").first.id}
-  end
-
-
-  class Vertice
-    attr_accessor :p, :color, :d, :f, :stop
-
-    # v.d = when vertex discovered
-    # v.f = when all adjancent vertexes explored
-    # v.p = predecessor
-    # v.color = WHITE (nonexplored), GREY (some explored, some not), BLACK (explored)
-
-    def initialize(stop)
-      @stop = stop
-      @color = "WHITE"
-      @p = []
-    end
-
-    def predecessors
-      @p
-    end
   end
 end
