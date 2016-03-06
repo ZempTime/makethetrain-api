@@ -80,7 +80,7 @@ class Path
     def initialize(stop)
       @stop = stop
       @color = "WHITE"
-      @p = nil
+      @p = []
     end
 
     def predecessors

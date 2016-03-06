@@ -20,7 +20,10 @@ class DepthFirstSearch
     u.color = "GRAY"
     adjacent_vertices = @edges.select { |e| e.include?(u)}
     adjacent_vertices.each do |v|
-      visit(graph, v) if v.color == "WHITE"
+      if v.color == "WHITE"
+        v.p << u
+        visit(graph, v)
+      end
     end
     u.color == "BLACK"
     @time += 1
