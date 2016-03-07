@@ -30,7 +30,8 @@ class Import
         arrival_time:     stop_time["arrival_time"],
         departure_time:   stop_time["departure_time"],
         stop_id:          stop_time["stop_id"],
-        stop_sequence:    stop_time["stop_sequence"]
+        stop_sequence:    stop_time["stop_sequence"],
+        seconds_since_midnight: DateTime.parse(stop_time["departure_time"]).seconds_since_midnight
       ).first_or_create
     end
 

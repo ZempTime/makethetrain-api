@@ -6,4 +6,10 @@ class StopTime < ApplicationRecord
   def route
     trip.route
   end
+
+  def self.calculate_seconds_since_midnight
+    all.each do |st|
+      st.update(seconds_since_midnight: DateTime.parse(StopTime.first.departure_time).seconds_since_midnight)
+    end
+  end
 end
