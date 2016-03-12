@@ -1,14 +1,16 @@
 class BreadthFirstSearch
-  attr_accessor :graph, :stops, :edges, :from, :to, :path
+  attr_accessor :vertices, :stops, :edges, :from, :to, :path
 
-  def initialize(stop_graph, from, to)
-    @stops = Array.new(stop_graph.stops)
-    @graph = Array.new(stop_graph.graph)
-    @edges = Array.new(stop_graph.edges)
+  def initialize(from, to)
+    @graph = StopGraph.new
+    @stops = @graph.stops
+    @vertices = @graph.vertices
+    @edges = @graph.edges
+
     @from = from
     @to = to
 
-    @s = @graph[@stops.index(@from)]
+    @s = @graph.find_vertex(from)
     search
     @path = calculate_path
   end
@@ -23,8 +25,7 @@ class BreadthFirstSearch
 
     while @queue.any? do
       u = @queue.shift
-      adjacent_vertices(@graph.index(u)).each do |v|
-        v = @graph.at(v)
+      @graph.adjacent_vertices(u).each do |v|
         if v.color == "WHITE"
           v.color = "GRAY"
           v.distance = u.distance + 1
@@ -36,14 +37,8 @@ class BreadthFirstSearch
     end
   end
 
-  def adjacent_vertices(vertex_index)
-    v = vertex_index
-    Array.new(@edges).select { |e| e.include?(v)}.map {|edge| edge.select { |e| e != v}}.flatten.uniq
-  end
-
   def calculate_path
-    index = @stops.index(@to)
-    dest = @graph.at(index)
+    dest = @graph.find_vertex(@to)
     path = []
 
     path << dest

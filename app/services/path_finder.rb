@@ -1,31 +1,37 @@
 class PathFinder
-  attr_accessor :path
-
-  def initialize(from, to)
-    @from ||= Stop.find(6)  #=> Shrewsbury
-    @to   ||= Stop.find(35) #=> North Hanley
-
-    @sg = StopGraph.new
-    @bfs = BreadthFirstSearch.new(@sg, @from, @to)
-    @path = @bfs.path
-  end
+  attr_accessor :path, :segments
 
   EAST = "0"
   WEST = "1"
 
-  def blue_line_names
-    [
-      "SHREWSBURY", "SUNNEN", "MAPLEWOOD", "BRENTWOOD", "RICHMOND HEIGHTS", "CLAYTON", "FORSYTH", "U CITY BIG BEND", "SKINKER",
-      "FOREST PARK", "CENTRAL WEST END", "GRAND", "UNION STA", "CIVIC CENTER", "STADIUM", "8TH AND PINE", "CONVENTION CENTER", "LACLEDES LANDING", "EAST RIVERFRONT", "5TH & MISSOURI", "EMERSON PARK", "JJK CENTER", "WASHINGTON PARK", "FAIRVIEW HEIGHTS"
-    ]
+  def initialize(from, to)
+    @from ||= Stop.find(6)  #=> default Shrewsbury
+    @to   ||= Stop.find(35) #=> default North Hanley
+
+    @sg = StopGraph.new
+    @bfs = BreadthFirstSearch.new(@sg, @from, @to)
+    @path = @bfs.path
+    @segments = calculate_segments
   end
 
-  def red_line_names
-    [
-      "LAMBERT MAIN TRML", "LAMBERT EAST TRML", "NORTH HANLEY", "UMSL NORTH", "UMSL SOUTH", "ROCK ROAD", "WELLSTON", "DELMAR",
-      "FOREST PARK", "CENTRAL WEST END", "GRAND", "UNION STA", "CIVIC CENTER", "STADIUM", "8TH AND PINE", "CONVENTION CENTER", "LACLEDES LANDING", "EAST RIVERFRONT", "5TH & MISSOURI", "EMERSON PARK", "JJK CENTER", "WASHINGTON PARK", "FAIRVIEW HEIGHTS",
-      "MEMORIAL HOSPITAL", "SWANSEA", "BELLEVILLE", "COLLEGE", "SHILOH-SCOTT"
-    ]
+  def calculate_segments
+    line_statuses = @path.map{ |s| [blue_line.include?(s.stop_id), red_line.include?(s.stop_id)]}
+    pattern = line_statuses.first
+    changes_at = []
+    line_statuses.each_with_index do |s, i|
+      if s != pattern && s != []
+        changes_at << i
+        pattern = s
+      end
+    end
+    changes_at
   end
 
+  def blue_line
+    ["14753", "14754", "14755", "14756", "14757", "14758", "14759", "14760", "14761", "10626", "10625", "10624", "10623", "10622", "13662", "10620", "10619", "10618", "10617", "10616", "10599", "10600", "10601", "10602"]
+  end
+
+  def red_line
+    ["10634", "10633", "10632", "10631", "10630", "10629", "10628", "10627", "10626", "10625", "10624", "10623", "10622", "13662", "10620", "10619", "10618", "10617", "10616", "10599", "10600", "10601", "10602", "10603", "10604", "10605", "11103", "14274"]
+  end
 end

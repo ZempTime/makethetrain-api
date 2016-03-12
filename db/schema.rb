@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20160307022113) do
     t.string   "arrival_time"
     t.string   "departure_time"
     t.string   "stop_id"
-    t.string   "stop_sequence"
+    t.integer  "stop_sequence"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "seconds_since_midnight"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20160307022113) do
     t.string   "location_type"
     t.string   "stop_code"
     t.string   "stop_desc"
+    t.string   "stop_colors"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end

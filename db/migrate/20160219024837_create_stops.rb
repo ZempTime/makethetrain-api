@@ -9,6 +9,7 @@ class CreateStops < ActiveRecord::Migration[5.0]
       t.string :location_type
       t.string :stop_code
       t.string :stop_desc
+      t.string :stop_colors
 
       t.timestamps
     end
