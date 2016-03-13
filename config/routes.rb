@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get "/path", to: "paths#reveal", as: :reveal_path
-
+  resources :stops, only: [:index]
+  get "/itinerary", to: "itineraries#calculate", as: :calculate_itinerary
   root to: "home#index"
 end

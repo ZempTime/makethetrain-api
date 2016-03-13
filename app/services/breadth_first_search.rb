@@ -10,7 +10,7 @@ class BreadthFirstSearch
     @from = from
     @to = to
 
-    @s = @graph.find_vertex(from)
+    @s = @graph.find_vertex(@from)
     search
     calculate_path
     calculate_segments
