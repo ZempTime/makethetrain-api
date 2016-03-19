@@ -7,5 +7,5 @@ Rails.application.routes.draw do
 
   resource :transit, only: [:new, :create, :show]
 
-  root to: "transit#new"
+  root to: "transits#new"
 end
