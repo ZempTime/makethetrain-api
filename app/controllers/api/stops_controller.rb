@@ -1,4 +1,5 @@
-class StopsController < ApplicationController
+class Api::StopsController < ApplicationController
+  
   def index
     render json: hardcoded_response
   end

@@ -1,4 +1,4 @@
-class ItinerariesController < ApplicationController
+class Api::ItinerariesController < ApplicationController
   before_action :validate_params
 
   def calculate
