@@ -1,1 +1,12 @@
-<h1>WE'RE ALL GONNA MAKE IT, BRAH</h1>
+<% @segments.each do |segment, index| %>
+<div>
+  <p>
+    Get on at: <%= segment[:from]["stop_name"] %>
+  </p>
+  <div data-behavior="timer" data-stoptimes="<%= segment[:stop_times] %>">
+  </div>
+  <p>
+    Get off at: <%= segment[:to]["stop_name"] %>
+  </p>
+</div>
+<% end %>
