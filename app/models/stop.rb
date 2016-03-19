@@ -5,6 +5,10 @@ class Stop < ApplicationRecord
   has_many :routes, through: :trips
   serialize :route_colors, Array
 
+  def self.options_for_select
+    all.order(stop_name: :asc).map { |stop| [stop.stop_name, stop.stop_id]}
+  end
+
   def set_route_colors
     route_colors = routes.pluck(:route_short_name).uniq.sort
     update(route_colors: route_colors)

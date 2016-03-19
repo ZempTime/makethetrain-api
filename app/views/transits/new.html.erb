@@ -1,0 +1,18 @@
+<%= form_tag transit_path do %>
+  <div>
+    <p>
+      From:
+    </p>
+    <%= select_tag "from", options_for_select(Stop.options_for_select) %>
+  </div>
+  <div>
+    <p>
+      To:
+    </p>
+    <%= select_tag "to", options_for_select(Stop.options_for_select) %>
+  </div>
+  <div>
+    <br>
+    <%= submit_tag "Go Now" %>
+  </div>
+<% end %>

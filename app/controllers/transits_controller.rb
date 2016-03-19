@@ -4,6 +4,8 @@ class TransitsController < ApplicationController
   end
 
   def create
+    #do calculations
+    render :show
   end
 
   def show
