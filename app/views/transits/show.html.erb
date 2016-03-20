@@ -1,9 +1,10 @@
-<% @segments.each do |segment, index| %>
+<% @segments.each do |segment| %>
 <div>
   <p>
     Get on at: <%= segment[:from]["stop_name"] %>
   </p>
   <div data-behavior="timer" data-stoptimes="<%= segment[:stop_times] %>">
+
   </div>
   <p>
     Get off at: <%= segment[:to]["stop_name"] %>

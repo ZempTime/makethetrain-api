@@ -9,7 +9,6 @@ class TransitsController < ApplicationController
     bfs = BreadthFirstSearch.new(from, to)
     @segments = []
 
-
     bfs.segments.each do |segment|
       trips = segment[:from].trips.where(direction_id: segment[:direction]).pluck(:trip_id)
       segment[:stop_times] = segment[:from].stop_times.older_than(DateTime.now.seconds_since_midnight).where(trip_id: trips).order(seconds_since_midnight: :asc).first(20).pluck(:seconds_since_midnight).uniq
