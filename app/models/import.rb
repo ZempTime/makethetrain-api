@@ -116,7 +116,7 @@ class Import
   end
 
   def self.csv_path(name)
-    [Rails.root, "/transit_data/2-18-16/", name, ".txt"].join
+    [Rails.root, "/transit_data/4-9-16/", name, ".txt"].join
   end
 
   def self.to_bool(str)
