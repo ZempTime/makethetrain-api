@@ -24,3 +24,5 @@ class Api::ItinerariesController < ApplicationController
       end
     end
 end
+
+# pp StopTime.joins(:trip).where(trips: { direction_id: "0" }).where(stop_id: "14753").older_than(DateTime.now.seconds_since_midnight).order(:seconds_since_midnight).first(6)
