@@ -12,7 +12,7 @@ class Api::ItinerariesController < ApplicationController
       @response.push segment
     end
 
-    render json: @response
+    render json: JSON.pretty_generate(@response.as_json)
   end
 
   private
