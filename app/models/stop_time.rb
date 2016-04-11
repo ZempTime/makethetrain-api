@@ -5,6 +5,18 @@ class StopTime < ApplicationRecord
 
   scope :older_than, -> (seconds) { where("seconds_since_midnight > ?", seconds)}
 
+  # pp StopTime.joins(:trip).where(trips: { direction_id: "0", service_id: Calendar.active_today.service_id }).where(stop_id: "14753").older_than(DateTime.now.seconds_since_midnight).order(:seconds_since_midnight).first(6)
+
+  def self.next(from, direction, number)
+    if from.is_a? Stop
+      from_id = from.stop_id
+    else
+      from_id = from
+    end
+
+    StopTime.joins(:trip).where(trips: { direction_id: direction, service_id: Calendar.active_today.service_id }).where(stop_id: from_id).older_than(DateTime.now.seconds_since_midnight).order(:seconds_since_midnight).first(number.to_i)
+  end
+
   def route
     trip.route
   end

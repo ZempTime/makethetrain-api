@@ -7,10 +7,8 @@ class Api::ItinerariesController < ApplicationController
     bfs = BreadthFirstSearch.new(from, to)
     @response = []
 
-
     bfs.segments.each do |segment|
-      trips = segment[:from].trips.where(direction_id: segment[:direction]).pluck(:trip_id)
-      segment[:stop_times] = segment[:from].stop_times.older_than(DateTime.now.seconds_since_midnight).where(trip_id: trips).order(seconds_since_midnight: :asc).first(20).pluck(:departure_time)
+      segment[:stop_times] = StopTime.next(segment[:from], segment[:direction], 20)
       @response.push segment
     end
 
@@ -24,5 +22,3 @@ class Api::ItinerariesController < ApplicationController
       end
     end
 end
-
-# pp StopTime.joins(:trip).where(trips: { direction_id: "0" }).where(stop_id: "14753").older_than(DateTime.now.seconds_since_midnight).order(:seconds_since_midnight).first(6)
