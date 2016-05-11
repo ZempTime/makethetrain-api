@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
-
-gem 'rails', '>= 5.0.0.beta2', '< 5.1'
+gem 'rails', '~> 5.0.0.rc1'
 gem 'pg', '~> 0.18'
 gem 'puma'
 gem 'sass-rails', '~> 5.0'
@@ -21,6 +20,10 @@ end
 group :development do
   gem 'web-console', '~> 3.0'
   gem 'spring'
+  gem 'capistrano', '~> 3.4'
+  gem 'capistrano-bundler', '~> 1.1', '>= 1.1.4 '
+  gem 'capistrano-rails', '~> 1.1.1'
+  gem 'capistrano-rbenv', github: "capistrano/rbenv"
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

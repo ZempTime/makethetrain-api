@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   # do it physically in the db, step by step
 
   resource :transit, only: [:new, :create, :show]
+  resource :user_trip, only: [:new, :create, :show]
 
   root to: "transits#new"
 end
