@@ -9,7 +9,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails'
-gem 'turbolinks'
+gem 'turbolinks', '~> 5.0.0.beta2'
 gem 'jbuilder', '~> 2.0'
 gem 'redis', '~> 3.0'
 
@@ -27,4 +27,3 @@ group :development do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'jquery-countdown-rails', '~> 2.0', '>= 2.0.2'

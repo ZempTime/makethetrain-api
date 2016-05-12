@@ -1,0 +1,12 @@
+<h1>Your Trip</h1>
+
+<div data-behavior="user-trip">
+  <% @user_trip.segments.each do |segment| %>
+    <div data-segment-number="<%= segment.segment_number %>" data-behavior="segment">
+      <p>Get on at: <%= segment.from.stop_name %> going <%= segment.display_direction %></p>
+      <div class="timer" data-behavior="timer" data-stoptime="<%= segment.next_arrival_at %>">
+      </div>
+      <p>Get off at: <%= segment.to.stop_name %></p>
+    </div>
+  <% end %>
+</div>

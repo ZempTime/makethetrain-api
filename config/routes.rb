@@ -5,11 +5,7 @@ Rails.application.routes.draw do
     get "/itinerary", to: "itineraries#calculate", as: :calculate_itinerary
   end
 
-  # draw it out on paper
-  # do it physically in the db, step by step
+  resources :user_trips, only: [:new, :create, :show]
 
-  resource :transit, only: [:new, :create, :show]
-  resource :user_trip, only: [:new, :create, :show]
-
-  root to: "transits#new"
+  root to: "user_trips#new"
 end

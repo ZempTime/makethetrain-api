@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  from_id: MyString
+  to_id: MyString
+  user_uid: 1
+  departure_at: 2016-05-11 17:04:38
+  delay: 1
+
+two:
+  from_id: MyString
+  to_id: MyString
+  user_uid: 1
+  departure_at: 2016-05-11 17:04:38
+  delay: 1

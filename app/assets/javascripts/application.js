@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.countdown
-//= require jquery.countdown-es
+//= require jquery.countdown.min
 //= require turbolinks
-//= require_tree .
+//= require user_trips

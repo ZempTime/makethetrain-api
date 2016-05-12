@@ -1,0 +1,25 @@
+<%= form_for @user_trip do |f| %>
+  <% if @user_trip.errors.any? %>
+    <ul>
+      <% @user_trip.errors.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div>
+    <%= f.label :from_id %>
+    <%= f.select :from_id, options_for_select(Stop.options_for_select, placeholder: "Select a Station") %>
+  </div>
+  <div>
+    <%= f.label :to_id %>
+    <%= f.select :to_id, options_for_select(Stop.options_for_select, placeholder: "Select a Station") %>
+  </div>
+  <div>
+    <%= f.label :delay, "How many minutes does it take you to get to the station?" %>
+    <%= f.number_field :delay, placeholder: 15 %>
+  </div>
+  <div>
+    <br>
+    <%= f.submit %>
+  </div>
+<% end %>
