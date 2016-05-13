@@ -13,4 +13,25 @@ class Stop < ApplicationRecord
     route_colors = routes.pluck(:route_short_name).uniq.sort
     update(route_colors: route_colors)
   end
+
+  def red_line?
+    route_colors.include?("MLR")
+  end
+
+  def blue_line?
+    route_colors.include?("MLB")
+  end
+
+  def both_lines?
+    red_line? && blue_line?
+  end
+
+  def single_line?
+    !both_lines?
+  end
+
+  def single_line_color
+    return "MLR" if red_line?
+    return "MLB" if blue_line?
+  end
 end

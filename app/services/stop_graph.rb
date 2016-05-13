@@ -1,5 +1,11 @@
 require 'set'
 
+# Graph
+# Edge
+# BFS
+# PathFinding
+# Segment
+
 class StopGraph
   attr_accessor :vertices, :edges, :stops
 
