@@ -1,14 +1,21 @@
 class Segment
-  attr_accessor :from, :to, :direction, :next_stoptime, :segment_number
+  attr_accessor :from, :to, :direction, :segment_number, :target_datetime
+
+  DIRECTIONS = {"0" => "east", "1" => "west"}
 
   def initialize(from, to, segment_number)
     @from = from
     @to = to
     @segment_number = segment_number
+    @target_datetime = DateTime.now
   end
 
   def direction
     @direction ||= calculate_direction
+  end
+
+  def direction_as_word
+    DIRECTIONS[direction]
   end
 
   def calculate_direction
@@ -21,17 +28,13 @@ class Segment
     end
   end
 
-  def next_arrival_at
+  def next_arrival_in_ms
     today_in_seconds = Time.new(Time.now.year, Time.now.month, Time.now.day).to_i
-    (@next_stoptime.seconds_since_midnight + today_in_seconds) * 1000
+    (next_stoptimes.first.seconds_since_midnight + today_in_seconds) * 1000
   end
 
   def next_stoptimes
-    trips = @from.trips.where(direction_id: @direction).pluck(:trip_id)
-    @next_stoptime =
-      @from.stop_times.older_than(DateTime.now.seconds_since_midnight)
-      .where(trip_id: trips)
-      .order(seconds_since_midnight: :asc)
+    StopTime.next(from, direction, target_datetime)
   end
 
   def set_direction(color, from, to)

@@ -5,24 +5,13 @@ class UserTrip < ApplicationRecord
   validates_numericality_of :delay
   validates_presence_of :from, :to, :delay, :departure_at
 
-  def calculate_segments
-    bfs = BreadthFirstSearch.new(from, to)
-    segments = []
-
-    bfs.segments.each_with_index do |segment, index|
-      segment = Segment.new(
-        from:           segment[:from],
-        to:             segment[:to],
-        direction:      segment[:direction],
-        segment_number: index
-      )
-      segments.push segment
-    end
-
-    @segments = segments
+  def segments
+    @segments ||= calculate_segments
   end
 
-  def segments
-    @segments
+  def calculate_segments
+    @segmenter = Segmenter.new(from, to, delay)
+    @segmenter.run
+    @segments = @segmenter.segments
   end
 end

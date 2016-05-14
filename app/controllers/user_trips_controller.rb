@@ -10,7 +10,6 @@ class UserTripsController < ApplicationController
 
   def show
     load_user_trip
-    @user_trip.calculate_segments
   end
 
   private

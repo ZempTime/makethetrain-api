@@ -1,10 +1,11 @@
 class Segmenter
   attr_accessor :path, :segments, :from, :to
 
-  def initialize(from, to)
+  def initialize(from, to, delay=0)
     @from = from
     @to   = to
     @segments = []
+    @delay = delay
 
     @bfs = Bfs.new(StopData.adjacency_list, @from, @to)
   end
@@ -12,7 +13,21 @@ class Segmenter
   def run
     @bfs.run
     @path = @bfs.result
-    @segments = calculate_segments
+    segments = calculate_segments
+    propogate_delay
+  end
+
+  def propogate_delay
+    segments.each_with_index do |segment, index|
+      if segments.first == segment
+        segment.target_datetime = DateTime.now + delay.minutes
+      else
+        boarding_stop = segments[index - 1].next_stoptimes.first
+        exit_stop = boarding_stop.trip.stoptimes.where(stop_id: to.stop_id).first
+        exit_stop_arrival_datetime = DateTime.now + (exit_stop.seconds_since_midnight).seconds
+        segment.target_datetime = exit_stop_arrival_datetime
+      end
+    end
   end
 
   def calculate_segments
