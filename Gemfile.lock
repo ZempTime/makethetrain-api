@@ -105,7 +105,7 @@ GEM
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.4)
-    puma (3.4.0)
+    puma (3.12.3)
     rack (2.0.0.rc1)
       json
     rack-test (0.6.3)
