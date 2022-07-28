@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.0.3.5'
+gem 'rails', '~> 5.2.8.1'
 gem 'pg', '~> 0.18'
 gem 'puma'
-gem 'sass-rails', '~> 5.0', '>= 5.0.8'
+gem 'sass-rails', '~> 5.0', '>= 5.0.5'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2.2'
+gem 'coffee-rails', '~> 4.1.1'
 gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails', '>= 4.1.1'
 gem 'turbolinks', '~> 5.0.0.beta2'
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder', '~> 2.4', '>= 2.4.1'
 gem 'redis', '~> 3.0'
 
 group :development, :test do
